@@ -1,0 +1,94 @@
+{% extends "library/base.html" %}
+
+{% block title %}Issued Books{% endblock %}
+
+{% block content %}
+<h1>Issued Books</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Book Title</th>
+            <th>Issued To</th>
+            <th>Issued To Role</th>
+            <th>Issue Date</th>
+            <th>Return Date</th>
+            <th>Overdue</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for issued_book in issued_books %}
+        <tr>
+            <td>{{ issued_book.book.title }}</td>
+            <td>
+                {% if issued_book.issued_to_student %}
+                    {{ issued_book.issued_to_student.first_name }} {{ issued_book.issued_to_student.last_name }}
+                {% elif issued_book.issued_to_faculty %}
+                    {{ issued_book.issued_to_faculty.first_name }} {{ issued_book.issued_to_faculty.last_name }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>
+                {% if issued_book.issued_to_student %}
+                    Student
+                {% elif issued_book.issued_to_faculty %}
+                    Faculty
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>{{ issued_book.issue_date }}</td>
+            <td>{{ issued_book.return_date }}</td>
+            <td>
+                {% if issued_book.is_overdue %}
+                    <span class="text-danger">Overdue</span>
+                {% else %}
+                    <span class="text-success">Not Overdue</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center">No books have been issued.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'issue_book_form' %}" class="btn btn-primary custom-btn">Issue New Book</a>
+
+<!-- Custom CSS -->
+<style>
+    /* Styling for the "Issue New Book" button */
+    .custom-btn {
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .custom-btn:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .custom-btn:active {
+        background-color: #004085;
+        transform: translateY(1px);
+    }
+
+    /* Styling for overdue status */
+    .text-danger {
+        color: red;
+    }
+    .text-success {
+        color: green;
+    }
+</style>
+{% endblock %}

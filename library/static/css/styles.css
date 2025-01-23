@@ -1,0 +1,225 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+/* Header Styles */
+.header {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Gradient background */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.library-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Styles */
+.navigation {
+    background-color: #0056b3; /* Dark blue navigation bar */
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navigation ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navigation ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.navigation ul li a:hover,
+.navigation ul li a.active {
+    background-color: white;
+    color: #0056b3;
+    transform: scale(1.1);
+}
+
+/* Main Content Area */
+main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove gaps between cells */
+    margin: 20px 0;
+    font-size: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #dddddd; /* Add a border around the entire table */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+table thead {
+    background-color: #0056b3; /* Header background */
+    color: white; /* Header text color */
+    font-weight: bold;
+    text-align: center;
+}
+
+table thead th {
+    padding: 15px;
+    border-right: 1px solid #dddddd; /* Column borders in header */
+}
+
+table thead th:last-child {
+    border-right: none; /* Remove border for last header cell */
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dddddd; /* Horizontal row separators */
+    transition: background-color 0.3s ease;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1; /* Row hover effect */
+}
+
+table tbody td {
+    padding: 10px 15px;
+    border-right: 1px solid #dddddd; /* Vertical column borders */
+    text-align: center;
+}
+
+table tbody td:last-child {
+    border-right: none; /* Remove border for last cell in each row */
+}
+
+/* Add alternating row colors for better readability */
+table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+    table {
+        font-size: 0.9rem;
+    }
+
+    table thead {
+        display: none; /* Hide table header for mobile view */
+    }
+
+    table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #dddddd; /* Border around each row in mobile view */
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: white;
+    }
+
+    table tbody td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody td:last-child {
+        border-bottom: none;
+    }
+
+    table tbody td::before {
+        content: attr(data-label); /* Use the "data-label" attribute for headers */
+        font-weight: bold;
+        color: #0056b3;
+        margin-right: 10px;
+    }
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+/* Buttons */
+button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #007bff;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .logo-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .library-title {
+        font-size: 1.8rem;
+    }
+
+    .navigation ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navigation ul li a {
+        font-size: 1rem;
+    }
+
+    main {
+        padding: 20px;
+    }
+}
+.banner-container {
+    text-align: center;
+    background-color: #fff; /* Background color for banner */
+    padding: 40px 0;
+}
+
+.banner-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for better presentation */
+}

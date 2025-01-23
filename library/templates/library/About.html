@@ -1,0 +1,134 @@
+{% extends "library/base.html" %}
+{% load static %}
+
+{% block title %}Faculty and Developers{% endblock %}
+
+{% block content %}
+<style>
+/* Additional styles for the enhanced About Us page */
+.profile-photo {
+    width: 150px; /* Increased width */
+    height: 150px; /* Increased height */
+    border-radius: 50%; /* Keeps the circular shape */
+    object-fit: cover; /* Ensures the image doesn't stretch */
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Slight shadow for better visibility */
+}
+
+.guide-info, .developer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.developer img, .guide-info img {
+    margin-right: 20px;
+}
+
+.about-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-heading {
+    text-align: center;
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+h3 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+h4 {
+    font-size: 1.6em;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<div class="about-container">
+    <h2 class="about-heading">About Us</h2>
+    
+    <section class="overview">
+        <h3>Library Management System Overview</h3>
+        <p>
+            The Library Management System is developed using Django. It provides a comprehensive solution for managing the library's resources efficiently. The system allows easy handling of book inventories, student data, and book issue/return processes. It also includes advanced features for seamless management.
+        </p>
+    </section>
+
+    <section class="guide">
+        <h3>Guided By</h3>
+        <div class="guide-info">
+            <img src="{% static 'photos/kalpesh-parmar.jpg' %}" alt="Guide Photo" class="profile-photo">
+            <div>
+                <h4>Mr.KALPESHKUMAR M. PARMAR</h4>
+                <p>Email: <a href="mailto:abc@gmail.com">kalpeshm85@gmail.com</a></p>
+                <p>Mobile: <a href="tel:+917016965702">1234567890</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="developers">
+        <h3>About the Developers</h3>
+        <div class="developer-info">
+            <div class="developer">
+                <img src="{% static 'photos/lohar-mayank.jpg' %}" alt="Lohar Mayank" class="profile-photo">
+                <div>
+                    <h4>Lohar Mayank T.</h4>
+                    <p>Enrollment No:<a href="#"> 236230332025</a> </p>
+                    <p>Email: <a href="mailto:loharmayank701@gmail.com">loharmayank701@gmail.com</a></p>
+                    <p>Mobile: <a href="tel:+917016965701">7016965701</a></p>
+                </div>
+            </div>
+            <div class="developer">
+                <img src="{% static 'photos/daksh-bhalsod.jpg' %}" alt="Daksh Bhalsod" class="profile-photo">
+                <div>
+                    <h4>Daksh Bhalsod</h4>
+                    <p>Enrollment No:<a href="#">236230332002</a> </p>
+                    <p>Email: <a href="mailto:dakshbhalsod@gmail.com">dakshbhalsod@gmail.com</a></p>
+                    <p>Mobile: <a href="tel:+917043299890">7043299890</a></p>
+                </div>
+            </div>
+            <div class="developer">
+                <img src="{% static 'photos/jaimin-pathak.jpg' %}" alt="Jaimin Pathak" class="profile-photo">
+                <div>
+                    <h4>Jaimin Pathak</h4>
+                    <p>Enrollment No:<a href="#">236230332045</a> </p>
+                    <p>Email: <a href="mailto:jaiminpathak16@gmail.com">jaiminpathak16@gmail.com</a></p>
+                    <p>Mobile: <a href="tel:+916359200710">6359200710</a></p>
+                </div>
+            </div>
+            <div class="developer">
+                <img src="{% static 'photos/adil-parikh.jpg' %}" alt="Adil Parikh" class="profile-photo">
+                <div>
+                    <h4> Adil Parikh</h4>
+                    <p>Enrollment No: <a href="#">236230332032</a></p>
+                    <p>Email: <a href="mailto:aadilparikh66@gmail.com">aadilparikh66@gmail.com</a></p>
+                    <p>Mobile: <a href="tel:+919313407011">9313407011</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}  <!-- Ensure 'base.html' exists or remove this line -->
+
+{% block content %}
+    <h2>Send Custom Email</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Send Email">
+    </form>
+{% endblock %}

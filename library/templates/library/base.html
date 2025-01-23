@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}E.C/ I.C.T Dept. Library{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Additional inline styles (optional) */
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="banner-container">
+            <img src="{% static 'photos/banner.jpeg' %}" alt="Government Polytechnic, Gandhinagar Banner">
+        </div>
+        <nav class="navigation">
+            <ul>
+                <li><a href="{% url 'book-list' %}">Books</a></li>
+                <li><a href="{% url 'student-list' %}">Students</a></li>
+                <li><a href="{% url 'faculty-list' %}">Faculty</a></li>
+                <li><a href="{% url 'issued_books' %}">Issued Books</a></li>
+                <li><a href="{% url 'return_book' %}">Return Books</a></li>
+                <li><a href="{% url 'About' %}">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+        </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        <h2>Welcome to the Library Management System</h2>
+        <p>Manage books, students, faculty, and more efficiently.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Published Year</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Book ID">1</td>
+                    <td data-label="Title">The Great Gatsby</td>
+                    <td data-label="Author">F. Scott Fitzgerald</td>
+                    <td data-label="Genre">Fiction</td>
+                    <td data-label="Published Year">1925</td>
+                </tr>
+                <tr>
+                    <td data-label="Book ID">2</td>
+                    <td data-label="Title">1984</td>
+                    <td data-label="Author">George Orwell</td>
+                    <td data-label="Genre">Dystopian</td>
+                    <td data-label="Published Year">1949</td>
+                </tr>
+            </tbody>
+        </table>
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 E.C/ I.C.T Dept. Library | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

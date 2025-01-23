@@ -1,0 +1,138 @@
+{% extends "library/base.html" %}
+
+{% block title %}Return Book{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">Return Book</h1>
+
+<!-- Display success or error messages -->
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="container">
+    <!-- Search Form -->
+    <form method="GET" action="{% url 'return_book' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" value="{{ search_query }}" class="form-control"
+                   placeholder="Search by Book Title, ISBN, or User Name/ID">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Book Return Form -->
+    <form action="{% url 'return_book' %}" method="POST" class="bg-light p-4 rounded shadow-sm">
+        {% csrf_token %}
+
+        <!-- Password Field -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+
+        <!-- Issued Book Selection -->
+        <div class="form-group">
+            <label for="issued_book">Issued Book</label>
+            <select name="issued_book" id="issued_book" class="form-control" required>
+                {% for issued_book in issued_books %}
+                <option value="{{ issued_book.id }}">
+                    {{ issued_book.book.title }} (ISBN: {{ issued_book.book.isbn }}) - 
+                    {% if issued_book.issued_to_student %}
+                        {{ issued_book.issued_to_student.student_id }} - {{ issued_book.issued_to_student.first_name }} {{ issued_book.issued_to_student.last_name }}
+                    {% elif issued_book.issued_to_faculty %}
+                        {{ issued_book.issued_to_faculty.faculty_id }} - {{ issued_book.issued_to_faculty.first_name }} {{ issued_book.issued_to_faculty.last_name }}
+                    {% endif %}
+                    (Issued on: {{ issued_book.issue_date }})
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block">Return Book</button>
+    </form>
+</div>
+
+<!-- Custom CSS for Enhanced Layout and Styling -->
+<style>
+    /* Title styling */
+    h1.text-center {
+        font-size: 2.5rem;
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Center content and constrain width */
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* Form container enhancements */
+    form.bg-light {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form control styling */
+    .form-control {
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 12px;
+    }
+
+    /* Search and selection form adjustments */
+    .input-group .form-control {
+        border-right: none;
+    }
+
+    .input-group-append .btn {
+        border-radius: 0 5px 5px 0;
+    }
+
+    /* Button styling */
+    .btn-block {
+        width: 100%;
+        font-size: 1.1rem;
+        padding: 10px 0;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    /* Message alert customization */
+    .alert {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    /* Mobile responsive adjustments */
+    @media (max-width: 768px) {
+        h1.text-center {
+            font-size: 2rem;
+        }
+        .form-control {
+            font-size: 0.9rem;
+        }
+        .btn-block {
+            font-size: 1rem;
+        }
+    }
+</style>
+{% endblock %}
