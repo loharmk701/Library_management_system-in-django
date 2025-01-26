@@ -1,0 +1,30 @@
+{% extends "library/base.html" %}
+
+{% block title %}Faculty List{% endblock %}
+
+{% block content %}
+<h2>Faculty List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Faculty ID</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for faculty in faculty_members %}
+        <tr>
+            <td>{{ faculty.first_name }}</td>
+            <td>{{ faculty.last_name }}</td>
+            <td>{{ faculty.email }}</td>
+            <td>{{ faculty.faculty_id }}</td>
+            <td>{{ faculty.department }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

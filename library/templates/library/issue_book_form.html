@@ -1,0 +1,142 @@
+{% extends "library/base.html" %}
+
+{% block title %}Issue New Book{% endblock %}
+
+{% block content %}
+<h1>Issue New Book</h1>
+
+<!-- Display success or error messages -->
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form action="{% url 'issue_book_form' %}" method="POST">
+    {% csrf_token %}
+
+    <!-- Password Field -->
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+
+    <!-- Search for Books -->
+    <div class="form-group">
+        <label for="book_search">Search Book (ISBN, Title)</label>
+        <input type="text" id="book_search" class="form-control" placeholder="Search for books...">
+    </div>
+
+    <!-- Select Book -->
+    <div class="form-group">
+        <label for="book">Book</label>
+        <select name="book" id="book" class="form-control" required>
+            {% for book in books %}
+            <option value="{{ book.id }}">{{ book.isbn }} - {{ book.title }} (Available: {{ book.quantity }})</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Search for Person -->
+    <div class="form-group">
+        <label for="person_search">Search Issued To (ID, Name)</label>
+        <input type="text" id="person_search" class="form-control" placeholder="Search for person...">
+    </div>
+
+    <!-- Select Role (Student/Faculty) -->
+    <div class="form-group">
+        <label for="issued_to_role">Issued To Role</label>
+        <select name="issued_to_role" id="issued_to_role" class="form-control" required>
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+        </select>
+    </div>
+
+    <!-- Select Person (Student or Faculty) -->
+    <div class="form-group" id="issued_to_select">
+        <label for="issued_to">Issued To</label>
+        <select name="issued_to" id="issued_to" class="form-control" required>
+            {% for student in students %}
+            <option value="{{ student.id }}" class="issued-to-student">{{ student.student_id }} - {{ student.first_name }} {{ student.last_name }}</option>
+            {% endfor %}
+            {% for faculty in faculties %}
+            <option value="{{ faculty.id }}" class="issued-to-faculty">{{ faculty.faculty_id }} - {{ faculty.first_name }} {{ faculty.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Issue Date -->
+    <div class="form-group">
+        <label for="issue_date">Issue Date</label>
+        <input type="date" name="issue_date" id="issue_date" class="form-control" required>
+    </div>
+
+    <!-- Return Date (Automatically set) -->
+    <div class="form-group">
+        <label for="return_date">Return Date</label>
+        <input type="date" name="return_date" id="return_date" class="form-control" readonly>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-success">Issue Book</button>
+</form>
+
+<!-- Add CSS styles and JavaScript -->
+<style>
+    .form-group { margin-bottom: 15px; }
+    .form-control { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+    .btn { padding: 10px 20px; border-radius: 5px; background-color: #28a745; color: white; font-size: 16px; }
+    .btn:hover { background-color: #218838; }
+    label { font-weight: bold; }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Dynamic filtering for book search
+        document.getElementById('book_search').addEventListener('keyup', function () {
+            const searchValue = this.value.toLowerCase();
+            document.querySelectorAll('#book option').forEach(option => {
+                option.style.display = option.textContent.toLowerCase().includes(searchValue) ? '' : 'none';
+            });
+        });
+
+        // Dynamic filtering for person search
+        document.getElementById('person_search').addEventListener('keyup', function () {
+            const searchValue = this.value.toLowerCase();
+            document.querySelectorAll('#issued_to option').forEach(option => {
+                option.style.display = option.textContent.toLowerCase().includes(searchValue) ? '' : 'none';
+            });
+        });
+
+        // Auto-calculate return date (15 days from issue date)
+        document.getElementById('issue_date').addEventListener('change', function () {
+            const issueDate = new Date(this.value);
+            if (isNaN(issueDate)) return;
+
+            const returnDate = new Date(issueDate);
+            returnDate.setDate(issueDate.getDate() + 15);
+
+            document.getElementById('return_date').value = returnDate.toISOString().split('T')[0];
+        });
+
+        // Initial filtering for person roles
+        const issuedToRole = document.getElementById('issued_to_role');
+        const issuedToSelect = document.getElementById('issued_to');
+        const studentOptions = document.querySelectorAll('.issued-to-student');
+        const facultyOptions = document.querySelectorAll('.issued-to-faculty');
+
+        function filterIssuedToOptions() {
+            const role = issuedToRole.value;
+            studentOptions.forEach(option => option.style.display = (role === 'student') ? '' : 'none');
+            facultyOptions.forEach(option => option.style.display = (role === 'faculty') ? '' : 'none');
+            issuedToSelect.value = '';
+        }
+
+        issuedToRole.addEventListener('change', filterIssuedToOptions);
+        filterIssuedToOptions();
+    });
+</script>
+
+{% endblock %}

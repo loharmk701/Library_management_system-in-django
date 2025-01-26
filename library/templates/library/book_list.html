@@ -1,0 +1,125 @@
+{% extends "library/base.html" %}
+
+{% block title %}Book List{% endblock %}
+
+{% block content %}
+<h2>Book List</h2>
+
+<!-- Search Bar -->
+<div class="search-container">
+    <input 
+        type="text" 
+        id="search-bar" 
+        onkeyup="searchBooks()" 
+        placeholder="Search books by title, author, ISBN..." 
+        class="search-bar"
+    />
+</div>
+
+<!-- Book List Table -->
+<div class="book-container">
+    <table id="book-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Publisher</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.isbn }}</td>
+                <td>{{ book.publisher }}</td>
+                <td>{{ book.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    /* General Layout */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    /* Search Bar Styles */
+    .search-container {
+        margin-bottom: 20px;
+    }
+    .search-bar {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Table Container */
+    .book-container {
+        overflow-x: auto; /* Enable horizontal scrolling for small screens */
+    }
+
+    /* Table Styles */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    th {
+        background-color: #007BFF; /* Primary color for header */
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9; /* Light gray for alternate rows */
+    }
+    tr:hover {
+        background-color: #f1f1f1; /* Slightly darker gray on hover */
+    }
+    td {
+        color: #333; /* Dark text for better readability */
+        font-size: 14px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        th, td {
+            font-size: 12px; /* Smaller font size for smaller screens */
+            padding: 10px;
+        }
+    }
+</style>
+
+<script>
+    // JavaScript Function to Filter Table Rows Based on Search Input
+    function searchBooks() {
+        const searchValue = document.getElementById("search-bar").value.toLowerCase();
+        const rows = document.querySelectorAll("#book-table tbody tr");
+
+        rows.forEach(row => {
+            const cells = row.getElementsByTagName("td");
+            const match = Array.from(cells).some(cell => 
+                cell.textContent.toLowerCase().includes(searchValue)
+            );
+
+            row.style.display = match ? "" : "none";
+        });
+    }
+</script>
+{% endblock %}
